@@ -30,10 +30,16 @@ if (!file.exists("inst/extdata/scotland_ca_2001.shp")) {
 }
 
 
+# Merge into one shapefile ====
 
-# # bash
-# ogr2ogr -f 'ESRI Shapefile' inst/extdata/ew_lad.shp inst/extdata/england_lad_2011.shp
-# ogr2ogr -f 'ESRI Shapefile' -update -append inst/extdata/ew_lad.shp inst/extdata/wales_lad_2011.shp
+# Use ogr2ogr as it's more straightforward than gUnaryUnion()
+
+system("chmod u+x exec/merge_ews_shapes.sh")
+system("exec/merge_ews_shapes.sh")
+
+
+#
+#
 
 lad <- readOGR("inst/extdata", "ew_lad")
 
