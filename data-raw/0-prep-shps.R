@@ -33,19 +33,39 @@ if (!file.exists("inst/extdata/scotland_ca_2001.shp")) {
 # Merge into one shapefile ====
 
 # Use ogr2ogr as it's more straightforward than gUnaryUnion()
-
 system("chmod u+x exec/merge_ews_shapes.sh")
-system("exec/merge_ews_shapes.sh")
+if (!file.exists("inst/extdata/ews.shp")) {
+  system("exec/merge_ews_shapes.sh")
+}
 
 
-#
-#
+# Simplify with rmapshaper::ms_simplify()
+ews <- readOGR("inst/extdata", "ews")
+pryr::object_size(ews)  # 63.3 MB
 
-lad <- readOGR("inst/extdata", "ew_lad")
 
-lad <- ms_simplify(lad, keep = 0.01)
+# Plot for blog
+if (!file.exists("figures/ews.png")) {
+  dir.create("figures/")
+  png("figures/ews.png", width = 1920, height = 2840, units = "px")
+  plot(ews)
+  dev.off()
+}
 
-lad@data$rmapshaperid <- NULL
 
-writeOGR(lad, dsn = "inst/extdata", layer = "ew_lad_simp",
+# Simplify geometries
+ews <- ms_simplify(ews, keep = 0.01)
+pryr::object_size(ews)  # 1.65 MB!
+
+# Plot for blog
+if (!file.exists("figures/ews_simp.png")) {
+  png("figures/ews_simp.png", width = 1920, height = 2840, units = "px")
+  plot(ews)
+  dev.off()
+}
+
+
+# Export ====
+ews@data$rmapshaperid <- NULL
+writeOGR(ews, dsn = "inst/extdata", layer = "ews_simp", overwrite_layer = TRUE,
          driver = "ESRI Shapefile")
