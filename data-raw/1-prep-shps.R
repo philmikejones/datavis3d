@@ -54,7 +54,7 @@ if (!file.exists("figures/ews.png")) {
 
 # Simplify geometries
 ews <- ms_simplify(ews, keep = 0.005)
-pryr::object_size(ews)  # 1.65 MB!
+pryr::object_size(ews)  # 1.3 MB!
 
 # Plot for blog
 if (!file.exists("figures/ews_simp.png")) {
@@ -64,54 +64,9 @@ if (!file.exists("figures/ews_simp.png")) {
 }
 
 
-# Merge in house price data ====
-load("data/hpi.RData")
-ews@data <- left_join(ews@data, hpi, by = c("name" = "Region_Name"))
-
-# Copy Cornwall to Scilly
-ews@data$Average_Price[grep("Scilly", ews@data$name)] <-
-  hpi$Average_Price[grep("Cornwall", hpi$Region_Name)]
-
-# Fix missing data
-ews@data$Average_Price[grep("Kensington", ews@data$name)] <-
-  hpi$Average_Price[grep("Kensington", hpi$Region_Name)]
-
-ews@data$Average_Price[grep("Nottingham", ews@data$name)] <-
-  hpi$Average_Price[grep("City of Nottingham", hpi$Region_Name)]
-
-ews@data$Average_Price[grep("Peterborough", ews@data$name)] <-
-  hpi$Average_Price[grep("Peterborough", hpi$Region_Name)]
-
-ews@data$Average_Price[grep("Kingston upon Hull", ews@data$name)] <-
-  hpi$Average_Price[grep("Kingston upon Hull", hpi$Region_Name)]
-
-ews@data$Average_Price[grep("Westminster", ews@data$name)] <-
-  hpi$Average_Price[grep("Westminster", hpi$Region_Name)]
-
-ews@data$Average_Price[ews@data$code == "E06000015"] <-
-  hpi$Average_Price[grep("City of Derby", hpi$Region_Name)]
-
-ews@data$Average_Price[grep("Herefordshire", ews@data$name)] <-
-  hpi$Average_Price[grep("Herefordshire", hpi$Region_Name)]
-
-ews@data$Average_Price[grep("Plymouth", ews@data$name)] <-
-  hpi$Average_Price[grep("Plymouth", hpi$Region_Name)]
-
-ews@data$Average_Price[grep("Bristol", ews@data$name)] <-
-  hpi$Average_Price[grep("Bristol", hpi$Region_Name)]
-
-ews@data$Average_Price[grep("Helens", ews@data$name)] <-
-  hpi$Average_Price[grep("Helens", hpi$Region_Name)]
-
-ews@data$Average_Price[grep("Glamorgan", ews@data$name)] <-
-  hpi$Average_Price[grep("Glamorgan", hpi$Region_Name)]
-
-ews@data$name[is.na(ews@data$Average_Price)]
-
-ews@data <- ews@data[!is.na(ews@data$name), ]
-
-
-# Export ====
+# Save simplified for merging
 ews@data$rmapshaperid <- NULL
-writeOGR(ews, dsn = "inst/extdata", layer = "ews_simp", overwrite_layer = TRUE,
-         driver = "ESRI Shapefile")
+ews@data[] <- lapply(ews@data, as.character)
+ews@data <- select(ews@data, -altname)
+
+save(ews, file = "data/ews.RData", compress = "xz")
