@@ -1,4 +1,5 @@
-# Create data/ if it doesn't already exist
+# Create directories
+dir.create("inst/extdata/", recursive = TRUE, showWarnings = FALSE)
 dir.create("data/", showWarnings = FALSE)
 
 
