@@ -1,15 +1,35 @@
+
+# Packages ====
 library("rgdal")
 library("rmapshaper")
 
-# unzip("inst/extdata/England_gor_2011.zip", exdir = "inst/extdata",
-#       overwrite = TRUE)
-# unzip("inst/extdata/England_lad_2011.zip", exdir = "inst/extdata",
-#       overwrite = TRUE)
-# unzip("inst/extdata/Wales_lad_2011.zip", exdir = "inst/extdata",
-#       overwrite = TRUE)
 
-# e_lad <- readOGR("inst/extdata", "england_lad_2011")
-# w_lad <- readOGR("inst/extdata", "wales_lad_2011")
+# Unzip shapefiles ====
+if (!file.exists("inst/extdata/england_lad_2011.shp")) {
+  download.file(paste0("https://census.edina.ac.uk/ukborders/easy_download/",
+                       "prebuilt/shape/England_lad_2011.zip"),
+                destfile = "inst/extdata/england.zip", method = "wget")
+  unzip("inst/extdata/england.zip", exdir = "inst/extdata",
+        overwrite = TRUE)
+}
+
+if (!file.exists("inst/extdata/wales_lad_2011.shp")) {
+  download.file(paste0("https://census.edina.ac.uk/ukborders/easy_download/",
+                       "prebuilt/shape/Wales_lad_2011.zip"),
+                destfile = "inst/extdata/wales.zip", method = "wget")
+  unzip("inst/extdata/wales.zip", exdir = "inst/extdata",
+        overwrite = TRUE)
+}
+
+if (!file.exists("inst/extdata/scotland_ca_2001.shp")) {
+  download.file(paste0("https://census.edina.ac.uk/ukborders/easy_download/",
+                       "prebuilt/shape/Scotland_ca_2001.zip"),
+                destfile = "inst/extdata/scotland.zip", method = "wget")
+  unzip("inst/extdata/scotland.zip", exdir = "inst/extdata/",
+        overwrite = TRUE)
+}
+
+
 
 # # bash
 # ogr2ogr -f 'ESRI Shapefile' inst/extdata/ew_lad.shp inst/extdata/england_lad_2011.shp
