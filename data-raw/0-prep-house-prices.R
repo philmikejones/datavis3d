@@ -9,23 +9,23 @@ library("dplyr")
 
 
 # Download source data ====
-# ONS median house price
-if (!file.exists("inst/extdata/hpm.xls")) {
-  download.file(paste0("https://www.ons.gov.uk/file?uri=/",
-                       "peoplepopulationandcommunity/housing/datasets/",
-                       "medianhousepricefornationalandsubnationalgeographies",
-                       "quarterlyrollingyearhpssadataset09/current/",
-                       "hpssadataset9medianhousepricefornationalandsubnational",
-                       "geographiesquarterlyrollingyear.xls"),
-                destfile = "inst/extdata/hpm.xls")
-}
-
-hpm <- readxl::read_excel("inst/extdata/hpm.xls",
-                          sheet = "2a", skip = 6, col_names = TRUE)
-hpm <- hpm[, c(3:4, 85)]
-colnames(hpm) <- c("la_code", "la_name", "med_price")
-
-save(hpm, file = "data/hpm.RData", compress = "xz")
+# # ONS median house price
+# if (!file.exists("inst/extdata/hpm.xls")) {
+#   download.file(paste0("https://www.ons.gov.uk/file?uri=/",
+#                        "peoplepopulationandcommunity/housing/datasets/",
+#                        "medianhousepricefornationalandsubnationalgeographies",
+#                        "quarterlyrollingyearhpssadataset09/current/",
+#                        "hpssadataset9medianhousepricefornationalandsubnational",
+#                        "geographiesquarterlyrollingyear.xls"),
+#                 destfile = "inst/extdata/hpm.xls")
+# }
+#
+# hpm <- readxl::read_excel("inst/extdata/hpm.xls",
+#                           sheet = "2a", skip = 6, col_names = TRUE)
+# hpm <- hpm[, c(3:4, 85)]
+# colnames(hpm) <- c("la_code", "la_name", "med_price")
+#
+# save(hpm, file = "data/hpm.RData", compress = "xz")
 
 
 # HPI
