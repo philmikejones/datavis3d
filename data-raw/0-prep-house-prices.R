@@ -30,7 +30,9 @@ library("dplyr")
 
 # HPI
 if (!file.exists("inst/extdata/hpi.csv")) {
-  download.file(paste0("http://publicdata.landregistry.gov.uk/market-trend-data/house-price-index-data/Average-prices-2016-07.csv"),
+  download.file(paste0("http://publicdata.landregistry.gov.uk/",
+                       "market-trend-data/house-price-index-data/",
+                       "Average-prices-2016-07.csv"),
                 destfile = "inst/extdata/hpi.csv")
 }
 
