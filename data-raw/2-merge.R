@@ -80,9 +80,10 @@ ews@data$Average_Price[grep("Dundee", ews@data$name)] <-
 ews@data <- select(ews@data, -label)
 colnames(ews@data)[3] <- "price"
 
-list.files("inst/extdata/", pattern = "_simp",
+dir.create("visualisations/", showWarnings = FALSE)
+list.files("visualisations/", pattern = "_simp",
            full.names = TRUE,
            include.dirs = TRUE) %>%
   file.remove()
-writeOGR(ews, dsn = "inst/extdata", layer = "ews_simp", overwrite_layer = TRUE,
+writeOGR(ews, dsn = "visualisations/", layer = "ews_simp",
          driver = "ESRI Shapefile")
