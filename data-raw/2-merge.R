@@ -70,7 +70,7 @@ ews@data$Average_Price[grep("Glasgow", ews@data$name)] <-
   hpi$Average_Price[grep("Glasgow", hpi$Region_Name)]
 
 ews@data$Average_Price[grep("Aberdeen", ews@data$name)] <-
-  hpi$Average_Price[grep("Aberdeen", hpi$Region_Name)]
+  hpi$Average_Price[grep("City of Aberdeen", hpi$Region_Name)]
 
 ews@data$Average_Price[grep("Dundee", ews@data$name)] <-
   hpi$Average_Price[grep("Dundee", hpi$Region_Name)]
