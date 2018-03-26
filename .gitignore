@@ -5,8 +5,8 @@ data/*.RData
 
 inst/extdata/
 
-# Images
-
+# Compiled
+README.html
 
 # Shapefiles
 *.dbf
