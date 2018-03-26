@@ -1,4 +1,4 @@
-# datavis3d
+# house-prices-rd
 
 ## About
 3D data visualisation task at the UK Data Service Open Data Hackathon, 24th September 2016

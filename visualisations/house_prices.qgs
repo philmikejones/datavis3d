@@ -134,7 +134,7 @@
         <ymax>1218091.73300000000745058</ymax>
       </extent>
       <id>ews_simp20160926223729574</id>
-      <datasource>/home/ggp13pmj/gits/datavis3d/visualisations/ews_simp.shp</datasource>
+      <datasource>/home/ggp13pmj/gits/house-prices-rd/visualisations/ews_simp.shp</datasource>
       <keywordList>
         <value></value>
       </keywordList>
