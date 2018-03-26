@@ -6,7 +6,7 @@ data/*.RData
 inst/extdata/
 
 # Images
-*.png
+
 
 # Shapefiles
 *.dbf
